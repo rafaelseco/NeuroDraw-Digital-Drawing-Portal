@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Portal - NeuroDraw | Porto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logoCinzento.png') }}">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"><!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.5vw;
+        }
+
+        h1 {
+            font-size: 2.8vw;
+        }
+
+        h6 {
+            font-size: 18px;
+        }
+
+        .dentroCaixa {
+            font-size: 20px;
+        }
+
+        .dentroCaixaErro {
+            font-size: 14px;
+        }
+
+        .icon {
+            font-size: 3vw;
+            /* Define o tamanho padrão dos ícones */
+        }
+
+        .icon2 {
+            font-size: 3vw;
+            /* Define o tamanho padrão dos ícones */
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+            padding: 6px;
+            font-family: 'Gill Sans MT', sans-serif;
+            z-index: 1;
+        }
+
+        .imagem2 {
+            width: 8vw;
+        }
+
+
+        .logos {
+            position: relative;
+            top: 30px;
+            left: 72%;
+        }
+
+        .logosMarcacoes {
+            position: absolute;
+            top: 0px;
+            font-size: 20px;
+        }
+
+        .logoMarcacoes2 {
+            position: absolute;
+            left: 70px;
+            font-size: 20px;
+        }
+
+        .card .logosAddMarcacoes {
+            position: absolute;
+            top: 12px;
+            right: 10px;
+            font-size: 20px;
+        }
+
+        .card .logosPedirExame {
+            position: absolute;
+            top: 12px;
+            right: 10px;
+            font-size: 20px;
+        }
+
+        .logosPacientes {
+            position: relative;
+            padding: 4px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .logosPacientes1 {
+            position: relative;
+            padding: 4px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .addMarcacoes {
+            position: relative;
+            display: none;
+            min-width: 300px;
+            height: 260px;
+            background-color: white;
+            z-index: 3;
+        }
+
+        .addPresenca {
+            position: relative;
+            display: none;
+            min-width: 300px;
+            height: 150px;
+            background-color: white;
+            z-index: 3;
+        }
+
+        .addPedido {
+            position: relative;
+            display: none;
+            width: 20vw;
+            height: 15vw;
+            background-color: white;
+            z-index: 3;
+        }
+
+        .greeting {
+            position: relative;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 5vw;
+        }
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flex2 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .flex3 {
+            display: flex;
+        }
+
+        .card,
+        .card1 {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 15px;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            width: 45vw;
+            height: 65vh;
+
+        }
+
+
+
+
+        .icon1 {
+            position: absolute;
+            top: 10px;
+            left: 5px;
+        }
+
+        .title {
+            color: grey;
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .paragrafo {
+            position: relative;
+            color: rgb(0, 0, 0);
+            font-size: 1.9vw;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .paragrafoPacientes {
+            position: relative;
+            color: rgb(0, 0, 0);
+            font-size: 1.9vw;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .paragrafo2 {
+            position: relative;
+            color: rgb(0, 0, 0);
+            font-size: 1.7vw;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        #datepicker {
+            display: none;
+            /* Esconde o campo de texto */
+        }
+
+        #calendar-icon {
+            position: absolute;
+            top: 12px;
+            left: 10px;
+            cursor: pointer;
+            float: left;
+            /* Posiciona o ícone à esquerda */
+            margin-right: 5px;
+            /* Adiciona um espaço entre o ícone e o texto */
+        }
+
+        .ui-datepicker {
+            font-size: 12px;
+            /* Define o tamanho da fonte do seletor de data */
+        }
+
+        input+span {
+            padding-right: 30px;
+        }
+
+        input:invalid+span::after {
+            position: absolute;
+            content: "✖";
+            padding-left: 5px;
+        }
+
+        input:valid+span::after {
+            position: absolute;
+            content: "✓";
+            padding-left: 5px;
+        }
+
+        .icon-container {
+            position: relative;
+            display: inline-block;
+        }
+
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 5px;
+            font-size: 12px;
+        }
+
+        .showNotificacoes {
+            position: absolute;
+            display: none;
+            top: 4vw;
+            right: 10vw;
+            width: 30vw;
+            height: 30vw;
+            background-color: white;
+            z-index: 3;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            overflow-y: scroll;
+        }
+
+        .subtituloCaixa {
+            font-size: 1.5vw;
+            text-align: left;
+            margin-inline-start: 20px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .dentroCaixaNotificacoes {
+            font-size: 1.3vw;
+            text-align: left;
+            margin-inline-start: 10px;
+        }
+
+        @media (max-width: 450px) {
+            body {
+                font-size: 2.5vw;
+            }
+
+            h1 {
+                font-size: 5vw;
+            }
+
+            .imagem2 {
+                width: 15vw;
+            }
+
+            .greeting {
+                font-size: 7vw;
+            }
+
+            .icon {
+                font-size: 6vw;
+            }
+
+            .icon2 {
+                font-size: 4.6vw;
+            }
+
+            .logos {
+                position: relative;
+                top: 20px;
+                left: 40%;
+            }
+
+            .card,
+            .card1 {
+                width: 90vw;
+                height: 70vh;
+            }
+
+            .paragrafo {
+                font-size: 4.9vw;
+            }
+
+            .paragrafoPacientes {
+                font-size: 3.9vw;
+            }
+
+            .paragrafo2 {
+                font-size: 3.9vw;
+            }
+
+            .logosMarcacoes {
+                position: absolute;
+                left: 0px;
+                top: 5px;
+                font-size: 20px;
+            }
+
+            .logoMarcacoes2 {
+                position: absolute;
+                left: 35px;
+                font-size: 20px;
+            }
+
+            .logosPacientes1 {
+                position: relative;
+                padding: 4px;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            .addMarcacoes {
+                position: relative;
+                display: none;
+                min-width: 65vw;
+                height: 65vw;
+                background-color: white;
+                z-index: 3;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            }
+
+            .addPresenca {
+                position: relative;
+                display: none;
+                min-width: 65vw;
+                height: 30vw;
+                background-color: white;
+                z-index: 3;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            }
+
+            .showNotificacoes {
+                position: absolute;
+                display: none;
+                top: 10vw;
+                right: 5vw;
+                width: 80vw;
+                height: 70vw;
+                background-color: white;
+                z-index: 3;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            }
+
+            h6 {
+                font-size: 14px;
+            }
+
+            .dentroCaixa {
+                font-size: 15px;
+            }
+
+            .dentroCaixaErro {
+                font-size: 10px;
+            }
+
+            .subtituloCaixa {
+                font-size: 4vw;
+                text-align: left;
+                margin-inline-start: 10px;
+                font-style: italic;
+                font-weight: bold;
+            }
+
+            .dentroCaixaNotificacoes {
+                font-size: 3vw;
+                text-align: left;
+                margin-inline-start: 5px;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
+
+    <script>
+        jQuery(function ($) {
+            $.datepicker.regional['pt'] = {
+                closeText: 'Fechar',
+                prevText: '<Anterior',
+                nextText: 'Seguinte',
+                currentText: 'Hoje',
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+                    'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                weekHeader: 'Sem',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['pt']);
+        });
+
+        $(document).ready(function () {
+            // Definir o idioma do calendário para português
+            $.datepicker.setDefaults($.datepicker.regional['pt']);
+
+            $("#datepicker").datepicker({
+                onSelect: function (dateText, inst) {
+                    $(".ui-datepicker-buttonpane button").css("font-size", "10px");
+                }
+            });
+
+            $("#calendar-icon").click(function () {
+                $("#datepicker").datepicker("show");
+            });
+        });
+
+        function FuncaoAdicionarMarcacoes() {
+            // Exibir o formulário
+            document.getElementById("formulario").style.display = "block";
+            document.getElementById("ListaMarcacoes").style.zIndex = 0;
+            document.getElementById("paragrafo").style.zIndex = 0;
+            document.getElementById("formulario").style.zIndex = 4;
+        }
+
+        function FuncaoPedirExame() {
+            // Exibir o formulário
+            document.getElementById("formularioExame").style.display = "block";
+            document.getElementById("ListaMarcacoes").style.zIndex = 0;
+            document.getElementById("paragrafo").style.zIndex = 0;
+            document.getElementById("formularioExame").style.zIndex = 4;
+        }
+
+        function guardarPedido() {
+
+            $.ajax({
+                type: "POST",
+                url: "/guardar_pedido",
+                data: {
+
+                },
+                success: function (response) {
+                    // Executar alguma ação após o sucesso
+                    console.log("Informações guardadas com sucesso!");
+                    document.getElementById("formularioExame").style.display = "none";
+                },
+                error: function (xhr, status, error) {
+                    // Lidar com erros
+                    console.error("Erro ao guardar informações:", error);
+                }
+            });
+
+        }
+
+        function guardarInformacoes() {
+            var dataSelecionada = document.getElementById("datepicker").value;
+            var escolhaConsulta = document.getElementById("escolherConsultaExame").value;
+            var pacienteSelecionado = document.getElementById("paciente").value;
+            var HoraDesejada = document.getElementById("time").value;
+
+
+            if (dataSelecionada && HoraDesejada) {
+                $.ajax({
+                    type: "POST",
+                    url: "/guardar_informacoes",
+                    data: {
+                        data: dataSelecionada,
+                        tipo: escolhaConsulta,
+                        paciente: pacienteSelecionado,
+                        hora: HoraDesejada
+                    },
+                    success: function (response) {
+                        // Executar alguma ação após o sucesso
+                        console.log("Informações guardadas com sucesso!");
+                        document.getElementById("formulario").style.display = "none";
+                    },
+                    error: function (xhr, status, error) {
+                        // Lidar com erros
+                        console.error("Erro ao guardar informações:", error);
+                    }
+                });
+            } else {
+                // Se NENHUMA das variáveis tiver valor atribuído, mostrar a mensagem de erro
+                document.getElementById("erro").style.display = "block";
+            }
+        }
+
+        function Cancelar() {
+            document.getElementById("formulario").style.display = "none";
+        }
+
+        function CancelarPedido() {
+            document.getElementById("formularioExame").style.display = "none";
+        }
+
+        function FuncaoMarcarPresenca() {
+            // Exibir o formulário
+            document.getElementById("formulario1").style.display = "block";
+            document.getElementById("ListaMarcacoes").style.zIndex = 0;
+            document.getElementById("paragrafo").style.zIndex = 0;
+            document.getElementById("formulario1").style.zIndex = 4;
+        }
+
+        function FuncaoMostrarNots() {
+
+            if (document.getElementById("placaNotificacoes").style.display == "none") {
+                document.getElementById("placaNotificacoes").style.display = "block";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+            else {
+                document.getElementById("placaNotificacoes").style.display = "none";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+        }
+
+
+        function guardarPresenca(id, idMarcacao) {
+            var Presenca = document.getElementById("MarcarPresenca").value;
+
+            if (Presenca) {
+                $.ajax({
+                    type: "POST",
+                    url: "/guardar_presenca",
+                    data: {
+                        idPresenca: Presenca,
+                        idPaciente: id,
+                        idMarcacao: idMarcacao
+                    },
+                    success: function (response) {
+                        // Executar alguma ação após o sucesso
+                        console.log("Informações guardadas com sucesso!");
+                        document.getElementById("formulario1").style.display = "none";
+                    },
+                    error: function (xhr, status, error) {
+                        // Lidar com erros
+                        console.error("Erro ao guardar informações:", error);
+                    }
+                });
+            } else {
+                // Se NENHUMA das variáveis tiver valor atribuído, mostrar a mensagem de erro
+                document.getElementById("erro1").style.display = "block";
+            }
+        }
+
+
+
+        function CancelarPresenca() {
+            document.getElementById("formulario1").style.display = "none";
+        }
+
+
+
+        function redirecionar(opcao, id) {
+            // Faça algo com o ID e a opção selecionada
+            if (opcao === 1) {
+                // Redirecione para a URL "/VerExame" com o ID como parâmetro
+                window.location.href = "/VerExame?id=" + id + "&data=0";
+            } else if (opcao === 2) {
+                // Redirecione para a URL "/InfoPacientes" com o ID como parâmetro
+                window.location.href = "/InfoPacientes?id=" + id;
+            } else if (opcao === 3) {
+                window.location.href = "/FollowUp?id=" + id;
+            }
+
+
+        }
+
+        function redirecionarAdmin(opcao, id, tipo) {
+            // Faça algo com o ID e a opção selecionada
+            if (opcao === 1) {
+                var message = "Tem certeza que deseja desativar este utilizador?";
+
+                if (confirm(message)) {
+                    window.location.href = "/desativar?id=" + id + "&tipo=" + tipo;
+                }
+                // Redirecione para a URL "/VerExame" com o ID como parâmetro
+                //window.location.href = "/VerExame?id=" + id + "&data=0";
+            } else if (opcao === 2) {
+                // Redirecione para a URL "/InfoPacientes" com o ID como parâmetro
+                window.location.href = "/verInfo?id=" + id + "&tipo=" + tipo;
+            }
+        }
+
+        function redirecionarForms(id) {
+            window.location.href = "/forms?id=" + id;
+        }
+
+    </script>
+
+</head>
+
+<body class="w3-light-grey">
+
+    <script src="https://kit.fontawesome.com/beb9d57fcc.js" crossorigin="anonymous"></script>
+
+    <div class="flex2">
+        <img src="../static/logoCinzento.png" alt="Logo do NeuroDraw" class="imagem2" id="imagem2">
+
+
+        {% if Funcao==1 %}
+        <div class="logos">
+            <a href="#" onclick="FuncaoMostrarNots()"><i class="icon fa-regular fa-bell"></i></a>
+
+            <div class="showNotificacoes w3-card-4 w3-center" id="placaNotificacoes">
+
+                <h6 style="padding: 5px;"><b>Lista de Notificações</h6></b>
+
+                {% if ListaNotifics %}
+                <p class="subtituloCaixa">Formulário</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'formularioContacto' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} submeteu um formulário de contacto!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+                <p class="subtituloCaixa">Médicos</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'medicos' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} registou-se como médico!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+
+                <p class="subtituloCaixa">Pacientes</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'pacientes' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} registou-se como paciente!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+                <p class="subtituloCaixa">Exames</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'exames' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} concluiu um exame!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+
+                {% endif %}
+
+            </div>
+
+
+            {% if nrMensagens!=0 %}
+            <a href="/Mensagens" class="icon-container"><i class="icon fa-regular fa-comments"></i><span
+                    class="badge">{{
+                    nrMensagens }}</span></a>
+            {% else %}
+            <a href="/Mensagens"><i class="icon fa-regular fa-comments"></i></a>
+            {% endif %}
+            <a href="/Estatisticas"><i class="icon fa-solid fa-chart-column"></i></i></a>
+            <a href="/logout"><i class="icon fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+
+        {% elif Funcao==2 %}
+        <div class="logos">
+            <a href="#" onclick="FuncaoMostrarNots()"><i class="icon fa-regular fa-bell"></i></a>
+
+            <div class="showNotificacoes w3-card-4 w3-center" id="placaNotificacoes">
+
+                <h6 style="padding: 5px;"><b>Lista de Notificações</h6></b>
+
+                {% if ListaNotifics %}
+                <p class="subtituloCaixa">Exames</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'exames' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} concluiu um exame!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+            </div>
+            {% if nrMensagens!=0 %}
+            <a href="/Mensagens" class="icon-container"><i class="icon fa-regular fa-comments"></i><span
+                    class="badge">{{
+                    nrMensagens }}</span></a>
+            {% else %}
+            <a href="/Mensagens"><i class="icon fa-regular fa-comments"></i></a>
+            {% endif %}
+            <a href="/GerirConta"><i class="icon fa-solid fa-user-doctor"></i></a>
+            <a href="/logout"><i class="icon fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+
+        {% else %}
+        <div class="logos">
+            <a href="#" onclick="FuncaoMostrarNots()"><i class="icon fa-regular fa-bell"></i></a>
+
+            <div class="showNotificacoes w3-card-4 w3-center" id="placaNotificacoes">
+
+                <h6 style="padding: 5px;"><b>Lista de Notificações</h6></b>
+
+                {% if ListaNotifics %}
+                <p class="subtituloCaixa">Marcação de exames</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'exames' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        Foi marcado um exame para o seguinte dia e hora: {{ linha ['data'] }}!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+                <p class="subtituloCaixa">Marcação de consulta</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'consulta' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        Foi marcada uma consulta para o seguinte dia e hora: {{ linha ['data'] }}!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+
+                {% endif %}
+
+            </div>
+            {% if nrMensagens!=0 %}
+            <a href="/Mensagens" class="icon-container"><i class="icon fa-regular fa-comments"></i><span
+                    class="badge">{{
+                    nrMensagens }}</span></a>
+            {% else %}
+            <a href="/Mensagens"><i class="icon fa-regular fa-comments"></i></a>
+            {% endif %}
+            <a href="/GerirConta"><i class="icon fa-regular fa-user"></i></a>
+            <a href="/logout"><i class="icon fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+        {% endif %}
+
+    </div>
+
+    {% if Funcao==1 %}
+
+    <section class="w3-row-padding w3-center w3-light-grey">
+        {% if var==1 %}
+        <div>
+            <h1 class="greeting">Olá, {{abreviatura}} {{Nome}} {{Apelido}}!</h1>
+        </div>
+        {% else %}
+        <div>
+            <h1 class="greeting">{{ erro }}</h1>
+        </div>
+        {% endif %}
+
+        <div class="flex">
+            <div class="card w3-white" style="overflow-y: auto; padding: 15px;z-index: 0;">
+
+                <h1 style="color:dimgray"><b><em>Todas as marcações futuras</em></b></h1>
+
+                {% if mensagem %}
+                <p class="title">{{ mensagem }}</p>
+                {% endif %}
+
+                {% if listaConsultasFuturas %}
+                {% for item in listaConsultasFuturas %}
+                <div class="row mb-3 align-items-center" id="ListaMarcacoes"
+                    style="border-bottom: 2px solid #ddd; z-index: 0;">
+                    <div class="col-2">
+                        {% if item['ID_Evento']=='2' %}
+                        <i class="icon fa-regular fa-hospital"></i>
+                        {% elif item['ID_Evento']=='1' %}
+                        <i class="icon fa-solid fa-laptop-medical"></i>
+                        {% else %}
+                        <i class="icon fa-regular fa-user"></i>
+                        {% endif %}
+                    </div>
+                    <div class="col-10">
+                        <p class="paragrafo" id="paragrafo">Dia {{ item['Dia'] }}
+                            às {{ item['Hora'] }} com paciente {{
+                            item['NomePaciente'] }} e médico {{ item['NomeMedico'] }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <br>
+            <!-- Add icon library -->
+            <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <div class="card1 w3-white" style="overflow-y: auto; padding: 15px;">
+
+                <h1 style="color:dimgray;"><b><em>Todos as marcações passadas</em></b></h1>
+                {% if mensagem2 %}
+                <p class="title">{{ mensagem2 }}</p>
+                {% endif %}
+
+                {% if listaConsultasPassadas %}
+                {% for item in listaConsultasPassadas %}
+                <div class="row mb-3 align-items-center" id="ListaMarcacoes"
+                    style="border-bottom: 2px solid #ddd; z-index: 0;">
+                    <div class="col-2">
+                        {% if item['ID_Evento']=='2' %}
+                        <i class="icon fa-regular fa-hospital"></i>
+                        {% elif item['ID_Evento']=='1' %}
+                        <i class="icon fa-solid fa-laptop-medical"></i>
+                        {% else %}
+                        <i class="icon fa-regular fa-user"></i>
+                        {% endif %}
+                    </div>
+                    <div class="col-10">
+                        <p class="paragrafo" id="paragrafo">Dia {{ item['Dia'] }}
+                            às {{ item['Hora'] }} com paciente {{
+                            item['NomePaciente'] }} e médico {{ item['NomeMedico'] }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+            </div>
+            <br>
+        </div>
+    </section>
+    <br>
+    <section class="w3-row-padding w3-center w3-light-grey">
+        <div class="flex">
+            <div class="card w3-white" style="overflow-y: auto; padding: 15px;z-index: 0;">
+
+                <h1 style="color:dimgray"><b><em>Todos os utilizadores ativos</em></b></h1>
+                {% if mensagem %}
+                <p class="title">{{ mensagem }}</p>
+                {% endif %}
+
+                {% if ListaUtilizadores %}
+                {% for item in ListaUtilizadores %}
+                <div class="row mb-3 align-items-center" style="border-bottom: 2px solid #ddd;">
+                    <div class="col-2">
+                        {% if item['ID_Sexo']==1 %}
+                        <img src="../static/menino.png" alt="Icone de Mulher" style="width:100%">
+                        {% elif item['ID_Sexo']==2 %}
+                        <img src="../static/menina.png" alt="Icone de Homem" style="width:100%">
+                        {% else %}
+                        <i class="icon fa-regular fa-user"></i></a>
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        <p class="paragrafo2">{{ item['Nome'] }} {{
+                            item['Apelido'] }}, {{ item['Idade']
+                            }} anos, {{ item['Email'] }}, CC nº: {{ item['NrCC'] }}, Função: {{ item['Tipo'] }}</p>
+                    </div>
+                    <div class="col-4 logosPacientes">
+                        <!-- <a href="https://www.google.com"><i class="icon fa-regular fa-file"></i></a> -->
+                        <a onclick="redirecionarAdmin(2, '{{ item['ID'] }}' , '{{ item['Tipo'] }}')"><i
+                                class="icon fa-solid fa-circle-info" style="cursor: pointer;"></i></a>
+
+                        <a onclick="redirecionarAdmin(1, '{{ item['ID'] }}' , '{{ item['Tipo'] }}')"><i
+                                class="icon fa-regular fa-circle-xmark" style="cursor: pointer;"></i></a>
+
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <br>
+
+
+            </div>
+            <!-- Add icon library -->
+            <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <div class="card1 w3-white" style="overflow-y: auto; padding: 15px;">
+
+                <h1 style="color:dimgray;"><b><em>Contactar</em></b></h1>
+                {% if mensagem2 %}
+                <p class="title">{{ mensagem2 }}</p>
+                {% endif %}
+
+                {% for item in ContactForms %}
+                <div class="row mb-3 align-items-center" style="border-bottom: 2px solid #ddd;">
+                    {% if item['Estado'] == '0' %}
+                    <div class="col-2">
+                        <a onclick="redirecionarForms('{{ item['ID'] }}')"><i class="icon fa-regular fa-envelope"
+                                style="cursor: pointer;"></i></a>
+                    </div>
+                    <div class="col-10">
+                        <p class="paragrafo">{{ item['Nome'] }} {{ item['Apelido'] }}, com o
+                            e-mail {{ item['Email'] }} preencheu o formulário de contacto!</p>
+                    </div>
+                    {% else %}
+                    <div class="col-2">
+                        <i class="icon fa-solid fa-envelope-circle-check" style="cursor: pointer;"></i>
+                    </div>
+                    <div class="col-10">
+                        <p class="paragrafo">Resposta já efetuada a {{ item['Nome'] }} {{
+                            item['Apelido'] }}, com o e-mail {{ item['Email'] }}.</p>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+            </div>
+            <br>
+        </div>
+    </section>
+
+    {% endif %}
+
+    <!-- PARA MEDICOS -->
+    {% if Funcao==2 %}
+
+    <section class="w3-row-padding w3-center w3-light-grey">
+        {% if var==1 %}
+        <div>
+            <h1 class="greeting">Olá, {{abreviatura}} {{Nome}} {{Apelido}}!</h1>
+        </div>
+        {% else %}
+        <div>
+            <h1 class="greeting">{{ erro }}</h1>
+        </div>
+        {% endif %}
+
+        <div class="flex">
+            <div class="card w3-white" style="overflow-y: auto; padding: 15px;z-index: 0;">
+                <div class="logosMarcacoes">
+                    <input type="text" id="datepicker" required>
+                    <i class="icon fa-regular fa-calendar" id="calendar-icon"></i>
+                </div>
+
+                <div class="logoMarcacoes2">
+                    <a href="/EventosAnteriores"><i class="icon fa-regular fa-folder-open"></i></a>
+                </div>
+
+                <h1 style="color:dimgray"><b><em>Marcações</em></b></h1>
+                {% if mensagem %}
+                <p class="title">{{ mensagem }}</p>
+                {% endif %}
+
+                {% if ListaMarcacoesFuturas %}
+                {% for item in ListaMarcacoesFuturas %}
+                {% if data == item['Dia'] %}
+                <div class="row mb-3 align-items-center" id="ListaMarcacoes"
+                    style="border-bottom: 2px solid #ddd; z-index: 0;background-color:aliceblue;">
+                    <div class="col-2">
+                        {% if item['ID_Evento']=='2' %}
+                        <a href="#" onclick="FuncaoMarcarPresenca()"><i class="icon fa-regular fa-hospital"></i></a>
+                        <div class="addPresenca w3-card-4 w3-center" id="formulario1">
+
+                            <h6 style="padding: 5px;"><b>Marcar presença do paciente ID {{ item['ID_Paciente'] }}</h6>
+                            </b>
+
+                            <p class="dentroCaixa">Selecione a opção:
+                                <!--<input type="text" id="datepicker">-->
+                                <select id="MarcarPresenca" required>
+                                    {% for linha in ListaPresenca %}
+                                    <option value="{{ linha['ID'] }}"> {{ linha['Descricao'] }} </option>
+                                    {% endfor %}
+                                </select>
+                            </p>
+
+                            <div id="erro1" style="display: none;">
+                                <p class="dentroCaixaErro" style="color: red;">É necessário escolher uma opção que
+                                    indique a assiduidade do paciente.</p>
+                            </div>
+
+                            <p><button
+                                    onclick="guardarPresenca({{ item['ID_Paciente'] }}, {{ item['ID'] }})">Guardar</button>
+                                <button onclick="CancelarPresenca()">Cancelar</button>
+                            </p>
+
+                        </div>
+
+                        {% elif item['ID_Evento']=='1' %}
+                        <i class="icon fa-solid fa-laptop-medical"></i>
+                        {% else %}
+                        <i class="icon fa-regular fa-user"></i>
+                        {% endif %}
+                    </div>
+                    <div class="col-10">
+                        <p class="paragrafo" id="paragrafo">Dia {{ item['Dia'] }}
+                            às {{ item['Hora'] }} com paciente com ID {{
+                            item['ID_Paciente'] }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row mb-3 align-items-center" id="ListaMarcacoes"
+                    style="border-bottom: 2px solid #ddd; z-index: 0;">
+                    <div class="col-2">
+                        {% if item['ID_Evento']=='2' %}
+                        <i class="icon fa-regular fa-hospital"></i>
+                        {% elif item['ID_Evento']=='1' %}
+                        <i class="icon fa-solid fa-laptop-medical"></i>
+                        {% else %}
+                        <i class="icon fa-regular fa-user"></i>
+                        {% endif %}
+                    </div>
+                    <div class="col-10">
+                        <p class="paragrafo" id="paragrafo">Dia {{ item['Dia'] }}
+                            às {{ item['Hora'] }} com paciente com ID {{
+                            item['ID_Paciente'] }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <p class="title">Não tem marcações.</p>
+                {% endif %}
+
+                {% if ListaPacientes %}
+
+                <div class="logosAddMarcacoes w3-right-align">
+                    <a href="#" onclick="FuncaoAdicionarMarcacoes()"><i class="icon fa-solid fa-plus"></i></a>
+
+                    <div class="addMarcacoes w3-card-4 w3-center" id="formulario">
+
+                        <h6 style="padding: 5px;"><b>Adicione marcações para os seus pacientes</h6></b>
+
+                        <p class="dentroCaixa">Selecione a opção:
+                            <!--<input type="text" id="datepicker">-->
+                            <select id="escolherConsultaExame" required>
+                                {% for item in ListaEventos %}
+                                <option value="{{ item['Descricao'] }}"> {{ item['Descricao'] }} </option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                        <p class="dentroCaixa">Selecione o paciente:
+                            <select id="paciente" required>
+                                {% for item in ListaPacientes %}
+                                <option value="{{ item['ID'] }}"> {{ item['Nome'] }} {{ item['Apelido'] }} </option>
+                                <!-- Opções para escolher o paciente -->
+                                {% endfor %}
+                            </select>
+                        </p>
+
+                        <p class="dentroCaixa">Selecione a hora pretendida:
+                            <input type="time" name="time" id="time" min="08:00" max="19:00" required
+                                pattern="[0-9]{2}:[0-9]{2}" />
+                            <span class="validity"></span>
+                        </p>
+
+                        <div id="erro" style="display: none;">
+                            <p class="dentroCaixaErro" style="color: red;">Não se esqueça de escolher uma data e uma
+                                hora
+                                disponíveis.</p>
+                        </div>
+
+                        <p><button onclick="guardarInformacoes()">Guardar</button>
+                            <button onclick="Cancelar()">Cancelar</button>
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+            <br>
+            <!-- Add icon library -->
+            <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <div class="card1 w3-white" style="overflow-y: auto; padding: 15px;">
+
+                <h1 style="color:dimgray;"><b><em>Pacientes</em></b></h1>
+                {% if mensagem2 %}
+                <p class="title">{{ mensagem2 }}</p>
+                {% endif %}
+
+                {% if ListaPacientes %}
+                {% for item in ListaPacientes %}
+                <div class="row mb-3 align-items-center" style="border-bottom: 2px solid #ddd;">
+                    <div class="col-2">
+                        {% if item['ID_Sexo']==1 %}
+                        <img src="../static/menino.png" alt="Icone de Mulher" style="width:100%">
+                        {% elif item['ID_Sexo']==2 %}
+                        <img src="../static/menina.png" alt="Icone de Homem" style="width:100%">
+                        {% else %}
+                        <i class="icon fa-regular fa-user"></i></a>
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        <p class="paragrafoPacientes">{{ item['ID'] }}, {{ item['Nome'] }} {{
+                            item['Apelido'] }}, {{ item['Idade']
+                            }} anos, {{ item['Email'] }}</p>
+                    </div>
+                    <div class="col-4 logosPacientes1">
+                        <a onclick="redirecionar(1, '{{ item['ID'] }}')"><i class="icon2 fa-solid fa-magnifying-glass"
+                                style="cursor: pointer;"></i></a>
+                        <a onclick="redirecionar(3, '{{ item['ID'] }}')"><i class="icon2 fa-solid fa-chart-line"
+                                style="cursor: pointer;"></i></a>
+                        <!-- <a href="https://www.google.com"><i class="icon fa-regular fa-file"></i></a> -->
+                        <a onclick="redirecionar(2, '{{ item['ID'] }}')"><i class="icon2 fa-solid fa-circle-info"
+                                style="cursor: pointer;"></i></a>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="title">Não tem pacientes associados.</p>
+                {% endif %}
+
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- PARA PACIENTES -->
+    {% if Funcao==3 %}
+    <section class="w3-row-padding w3-center w3-light-grey">
+        {% if var==1 %}
+        <div>
+            <h1 class="greeting">Olá, {{abreviatura}} {{Nome}} {{Apelido}}!</h1>
+        </div>
+        {% endif %}
+
+        {% if var==0 %}
+        <div>
+            <h1 class="greeting">{{ erro }}</h1>
+        </div>
+        {% endif %}
+
+        <div class="flex">
+            <div class="card w3-white" style="overflow-y: auto; padding: 15px;z-index: 0;">
+                <div class="logosMarcacoes">
+                    <input type="text" id="datepicker" required>
+                    <i class="icon fa-regular fa-calendar" id="calendar-icon"></i>
+                </div>
+
+                <h1 style="color:dimgray"><b><em>Consultas</em></b></h1>
+                {% if mensagem %}
+                <p class="title">{{ mensagem }}</p>
+                {% else %}
+                {% if ListaConsultasFuturas!=0 %}
+                {% for item in ListaConsultasFuturas %}
+                {% if DataAtual == item['Dia'] %}
+                <div class="row mb-3 align-items-center" id="ListaMarcacoes"
+                    style="border-bottom: 2px solid #ddd; z-index: 0;background-color: aliceblue;">
+                    <div class="col-2">
+                        <a href="/LocalizacaoConsulta"><i class="icon fa-regular fa-hospital"></i></a>
+                    </div>
+                    <div class="col-10">
+                        <p class="paragrafo" id="paragrafo">Marcação de consulta para dia {{
+                            item['Dia'] }}
+                            às {{ item['Hora'] }} com médico(a) {{ Medico['Nome'] }} {{ Medico['Apelido'] }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row mb-3 align-items-center" id="ListaMarcacoes"
+                    style="border-bottom: 2px solid #ddd; z-index: 0;">
+                    <div class="col-2">
+                        <a href="/LocalizacaoConsulta"><i class="icon fa-regular fa-hospital"></i></a>
+                    </div>
+                    <div class="col-10">
+                        <p class="paragrafo" id="paragrafo">Marcação de consulta para dia {{
+                            item['Dia'] }}
+                            às {{ item['Hora'] }} com médico(a) {{ Medico['Nome'] }} {{ Medico['Apelido'] }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <p class="title">Não tem consultas futuras agendadas.</p>
+                {% endif %}
+                {% endif %}
+
+            </div>
+            <!-- Add icon library -->
+            <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <div class="card w3-white" style="overflow-y: auto; padding: 15px;">
+
+                <h1 style="color:dimgray;"><b><em>Exames</em></b></h1>
+                {% if mensagem %}
+                <p class="title">{{ mensagem }}</p>
+                {% else %}
+                {% for item in ListaExamesFuturos %}
+                {% if DataAtual == item['Dia'] %}
+                <div class="row mb-3 align-items-center" id="ListaMarcacoes"
+                    style="border-bottom: 2px solid #ddd; z-index: 0;background-color: aliceblue;">
+                    <div class="col-2">
+                        <a href="/FazerExame"><i class="icon fa-solid fa-laptop-medical"></i></a>
+                    </div>
+                    <div class="col-10">
+                        <p class="paragrafo" id="paragrafo">Marcação de exame para dia {{
+                            item['Dia'] }}
+                            às {{ item['Hora'] }} com médico(a) {{ Medico['Nome'] }} {{ Medico['Apelido'] }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row mb-3 align-items-center" id="ListaMarcacoes"
+                    style="border-bottom: 2px solid #ddd; z-index: 0;">
+                    <div class="col-2">
+                        <i class="icon fa-solid fa-laptop-medical"></i>
+                    </div>
+                    <div class="col-10">
+                        <p class="paragrafo" id="paragrafo">Marcação de exame para dia {{
+                            item['Dia'] }}
+                            às {{ item['Hora'] }} com médico(a) {{ Medico['Nome'] }} {{ Medico['Apelido'] }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% endfor %}
+                {% endif %}
+
+                {% if varAux %}
+                {% if varAux > 1 %}
+                <div class="logosPedirExame w3-right-align">
+                    <a href="#" onclick="FuncaoPedirExame()"><i class="icon fa-regular fa-file-pdf"></i></a>
+
+                    <div class="addPedido w3-card-4 w3-center" id="formularioExame">
+
+                        <h6 style="padding: 5px;"><b>Pedido de relatório médico</h6></b>
+
+                        <p class="dentroCaixa">Ao pedir um relatório médico, o documento será enviado para o seu correio
+                            eletrónico.
+                        </p>
+
+                        <p><button onclick="guardarPedido()">Pedir</button>
+                            <button onclick="CancelarPedido()">Cancelar</button>
+                        </p>
+
+                    </div>
+
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <br>
+</body>
+
+</html>

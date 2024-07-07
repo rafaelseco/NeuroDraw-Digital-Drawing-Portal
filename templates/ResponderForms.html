@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Enviar E-Mail - NeuroDraw | Porto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logoCinzento.png') }}">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"><!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.5vw;
+        }
+
+        .logos {
+            position: relative;
+            top: 30px;
+            left: 72%;
+        }
+
+        .imagem2 {
+            width: 8vw;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+            padding: 6px;
+            font-family: 'Gill Sans MT', sans-serif;
+            z-index: 1;
+        }
+
+        .icon {
+            font-size: 3vw;
+            /* Define o tamanho padrão dos ícones */
+        }
+
+        .greeting {
+            position: relative;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 5vw;
+        }
+
+        .flex2 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .groove {
+            border-style: groove;
+            border-color: black;
+        }
+
+        .botao1 {
+            position: absolute;
+            width: 200px;
+            left: 420px;
+            background-color: rgb(216, 216, 216, 0.2);
+            border-color: black;
+            color: black;
+            font-weight: bold;
+        }
+
+        .botao1:hover {
+            background-color: darkgrey;
+            /* Cor de fundo ao passar o mouse */
+            border-color: darkgrey;
+            color: white;
+        }
+
+        .botao2 {
+            position: absolute;
+            width: 200px;
+            left: 910px;
+            background-color: rgb(216, 216, 216, 0.2);
+            border-color: black;
+            color: black;
+            font-weight: bold;
+        }
+
+        .botao2:hover {
+            background-color: darkgrey;
+            /* Cor de fundo ao passar o mouse */
+            border-color: darkgrey;
+            color: white;
+        }
+
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            width: 60vw;
+            margin-top: 60px;
+            height: 65vh;
+            margin: auto;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .card1 {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            width: 60vw;
+            margin-top: 60px;
+            height: 65vh;
+            margin: auto;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .card .logosMarcacoes {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 20px;
+        }
+
+        .card .logoMarcacoes2 {
+            position: absolute;
+            top: 20px;
+            left: 65px;
+            font-size: 20px;
+        }
+
+        .card .logosAddMarcacoes {
+            position: absolute;
+            top: 12px;
+            right: 10px;
+            font-size: 20px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .title {
+            color: grey;
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        /* Create two equal columns that sits next to each other */
+        .column {
+            flex: 50%;
+            padding: 10px;
+            height: 68px;
+            cursor: pointer;
+            /* Should be removed. Only for demonstration */
+        }
+
+        .botaosubmit {
+            position: relative;
+            width: 35%;
+            height: 2.5vw;
+            top: 5px;
+            left: 0%;
+            font-size: 1.3vw;
+            background-color: grey;
+            /* Cor de fundo */
+            border: none;
+            color: white;
+            /* Cor do texto */
+            /* Espaçamento interno */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 10px;
+            /* Borda arredondada */
+        }
+
+        .botaosubmit:hover {
+            background-color: darkgrey;
+        }
+
+        .showNotificacoes {
+            position: absolute;
+            display: none;
+            top: 4vw;
+            right: 10vw;
+            width: 30vw;
+            height: 30vw;
+            background-color: white;
+            z-index: 3;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            overflow-y: scroll;
+        }
+
+        .subtituloCaixa {
+            font-size: 1.5vw;
+            text-align: left;
+            margin-inline-start: 20px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .dentroCaixaNotificacoes {
+            font-size: 1.3vw;
+            text-align: left;
+            margin-inline-start: 10px;
+        }
+
+        @media (max-width: 450px) {
+            body {
+                font-size: 4vw;
+            }
+
+            h1 {
+                font-size: 5vw;
+            }
+
+            .tablink {
+                font-size: 5vw;
+            }
+
+            .greeting {
+                font-size: 7vw;
+            }
+
+
+            .card {
+                width: 90vw;
+                height: 55vh;
+            }
+
+            .icon {
+                font-size: 6vw;
+            }
+
+            .logos {
+                position: relative;
+                top: 20px;
+                left: 37%;
+            }
+
+
+            .paragrafo {
+                font-size: 6vw;
+            }
+
+            textarea {
+                width: 100%;
+                height: 4rem;
+            }
+
+            .botaosubmit {
+                left: 10%;
+                width: 60%;
+                height: 6vw;
+                font-size: 3vw;
+            }
+
+            .imagem2 {
+                width: 15vw;
+            }
+
+            .subtituloCaixa {
+                font-size: 4vw;
+                text-align: left;
+                margin-inline-start: 10px;
+                font-style: italic;
+                font-weight: bold;
+            }
+
+            .dentroCaixaNotificacoes {
+                font-size: 3vw;
+                text-align: left;
+                margin-inline-start: 5px;
+            }
+
+            .showNotificacoes {
+                position: absolute;
+                display: none;
+                top: 10vw;
+                right: 5vw;
+                width: 80vw;
+                height: 70vw;
+                background-color: white;
+                z-index: 3;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            }
+        }
+
+
+        /* Fade in tabs */
+        @-webkit-keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script>
+        function FuncaoMostrarNots() {
+
+            if (document.getElementById("placaNotificacoes").style.display == "none") {
+                document.getElementById("placaNotificacoes").style.display = "block";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+            else {
+                document.getElementById("placaNotificacoes").style.display = "none";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+        }
+    </script>
+
+</head>
+
+
+<body class="w3-light-grey">
+
+    <script src="https://kit.fontawesome.com/beb9d57fcc.js" crossorigin="anonymous"></script>
+
+
+    <div class="flex2">
+        <a href="/Portal"><img src="../static/logoCinzento.png" alt="Logo do NeuroDraw" class="imagem2"
+                id="imagem2"></a>
+
+        <div class="logos">
+            <a href="#" onclick="FuncaoMostrarNots()"><i class="icon fa-regular fa-bell"></i></a>
+
+            <div class="showNotificacoes w3-card-4 w3-center" id="placaNotificacoes">
+
+                <h6 style="padding: 5px;"><b>Lista de Notificações</h6></b>
+
+                {% if ListaNotifics %}
+                <p class="subtituloCaixa">Formulário</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'formularioContacto' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} submeteu um formulário de contacto!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+                <p class="subtituloCaixa">Médicos</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'medicos' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} registou-se como médico!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+
+                <p class="subtituloCaixa">Pacientes</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'pacientes' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} registou-se como paciente!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+                <p class="subtituloCaixa">Exames</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'exames' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} concluiu um exame!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+
+                {% endif %}
+
+            </div>
+            <a href="/Mensagens"><i class="icon fa-regular fa-comments"></i></a>
+            <a href="/Estatisticas"><i class="icon fa-solid fa-chart-column"></i></a>
+            <a href="/logout"><i class="icon fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+
+    </div>
+
+
+
+    <section class="w3-row-padding w3-center w3-light-grey">
+        <div>
+            <h1 class="greeting">Responder</h1>
+        </div>
+
+        <div class="card w3-white" style="overflow-y: auto; padding: 15px;z-index: 0;">
+
+            <!--<h1 style="color:dimgray"><b><em>Informações</em></b></h1>-->
+            <!--<div class="tab">-->
+
+            <br>
+            {% if mensagem %}
+            <p class="title" style="display: block;">{{ mensagem }}</p>
+            {% endif %}
+
+            {% if FormsdeContacto %}
+            <div id="info" class="info">
+                <div class="row mb-3 align-items-center " style="border-bottom: 2px solid #ddd;">
+                    <div class="col-6">
+                        <p><b>Nome </b></p>
+                    </div>
+                    <div class="col-6">
+                        <p><em>{{ FormsdeContacto['Nome'] }} {{ FormsdeContacto['Apelido'] }}</em></p>
+                    </div>
+                </div>
+                <div class="row mb-3 align-items-center " style="border-bottom: 2px solid #ddd;">
+                    <div class="col-6">
+                        <p><b>E-mail de contacto</b></p>
+                    </div>
+                    <div class="col-6">
+                        <p><em>{{ FormsdeContacto['Email'] }}</em></p>
+                    </div>
+                </div>
+                <div class="row mb-3 align-items-center" style="border-bottom: 2px solid #ddd;">
+                    <div class="col-6">
+                        <p><b>Descrição da mensagem</b></p>
+                    </div>
+                    <div class="col-6">
+                        <p><em>{{ FormsdeContacto['Descricao'] }}</em></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3 align-items-center">
+                    <div class="col-6">
+                        <p><b>Responder</b></p>
+                    </div>
+                    <div class="col-6">
+                        <form action="/forms" method="POST">
+                            <textarea id="fname" name="fname" rows="4" cols="30" style="border: none;"
+                                placeholder="Aqui pode escrever uma mensagem." required></textarea><br>
+                            <input type="submit" value="Enviar" class="botaosubmit">
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        </div>
+
+
+    </section>
+</body>
+
+
+</html>

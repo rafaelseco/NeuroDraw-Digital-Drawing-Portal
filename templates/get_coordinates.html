@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registar - NeuroDraw | Porto</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logoCinzento.png') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+        body {
+            font-size: 1.5vw;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .imagem2 {
+            position: absolute;
+            top: 5px;
+            z-index: 1;
+            width: 8vw;
+        }
+
+        .div2 {
+            margin-top: 10px;
+        }
+
+        .titulo {
+            position: absolute;
+            width: 1920px;
+            align-content: center;
+            text-align: center;
+            top: 100px;
+            /*background: rgb(0, 0, 0);
+            Fallback color */
+            background: rgba(0, 0, 0, 0);
+            /* Black background with 0.5 opacity */
+            color: #ffffff;
+            width: 100%;
+            padding: 10px;
+            font-size: 300px;
+            font-weight: 950;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-shadow: 1px 1px #a8a8a8, -1px -1px #a8a8a8, 1px -1px #a8a8a8, -1px 1px #a8a8a8;
+
+        }
+
+        .tituloFrase {
+            font-size: 9vw;
+        }
+
+        .mapa {
+            border-style: groove;
+            width: 800px;
+            height: 500px;
+        }
+
+        .input {
+            width: 28vw;
+        }
+
+        .fotoFooter {
+            width: 25%;
+        }
+
+        .botao {
+            width: 10vw;
+        }
+
+        .frase3 {
+            margin-left: 200px;
+            margin-right: 200px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 450px) {
+            .imagem2 {
+                width: 20vw;
+            }
+
+            body {
+                font-size: 5vw;
+            }
+
+            .fotoFooter {
+                width: 60%;
+            }
+
+            .titulo {
+                position: relative;
+                width: 100%;
+                top: 0;
+                align-content: center;
+                text-align: center;
+                /*background: rgb(0, 0, 0);
+            Fallback color */
+                background: rgba(0, 0, 0, 0);
+                /* Black background with 0.5 opacity */
+                color: #ffffff;
+                width: 100%;
+                padding: 10px;
+                font-weight: 950;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                text-shadow: 1px 1px #a8a8a8, -1px -1px #a8a8a8, 1px -1px #a8a8a8, -1px 1px #a8a8a8;
+
+            }
+
+            .tituloFrase {
+                font-size: 11vw;
+            }
+
+            .frase1 {
+                font-size: 5vw;
+            }
+
+            .frase2 {
+                font-size: 4vw;
+            }
+
+            .frase3 {
+                position: relative;
+                font-size: 3vw;
+                width: 100%;
+                margin: auto;
+                margin-bottom: 25px;
+            }
+
+            .mapa {
+                width: 80vw;
+                height: 80vw;
+            }
+
+            .input {
+                width: 45vw;
+                font-size: 4vw;
+            }
+
+            .botao {
+                width: 23vw;
+            }
+        }
+    </style>
+</head>
+
+<body class="w3-light-grey">
+
+    <img src="../static/imagem5.jpg" style="opacity:0.5;width:100%;">
+    <br>
+    <img src="../static/logobranco.png" alt="Logo do NeuroDraw" onclick="w3_open(0)" class="imagem2" id="imagem2">
+
+    <div>
+        <header class="titulo">
+            <h1 class="tituloFrase"><b>Registo</b></h1>
+        </header>
+    </div>
+
+    <header class="w3-center">
+        <h1 class="frase1"><b>De onde está a utilizar o NeuroDraw?</b></h1>
+        <h3 class="frase2"><em>A localização que fornecer apenas será tida em conta para propósitos estatísticos.</em>
+        </h3>
+        <p class="frase3">Para selecionar a localização, apenas
+            tem de escolher um
+            ponto no mapa e, ao clicar, irá aparecer um marcador. De seguida, terá de colocar o seu NIF e clicar no
+            botão "ENVIAR" para associar a esta localização.</p>
+    </header>
+
+    <div id="map" style="margin: auto;" class="mapa"></div>
+
+    <form id="coordinateForm" action="/get_coordinates" method="post" style="margin-top: 30px;" class="w3-center">
+        <input type="hidden" id="lat" name="lat" required>
+        <input type="hidden" id="lon" name="lon" required>
+        <button type="submit" class="botao"><b><em>ENVIAR</em></b></button>
+    </form>
+
+    <script>
+        var map = L.map('map').setView([40.36551597, -8.251165], 8);
+        var marker;
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        map.on('click', function (e) {
+            document.getElementById('lat').value = e.latlng.lat;
+            document.getElementById('lon').value = e.latlng.lng;
+
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            marker = L.marker([e.latlng.lat, e.latlng.lng], {}).addTo(map);
+        });
+    </script>
+
+    <br>
+    <br>
+    <br>
+
+    <!-- Footer -->
+    <footer class="w3-container w3-padding-64 w3-center w3-dark-grey w3-short">
+        <p class="w3-large">
+            Projeto realizado por estudantes da Unidade Curricular de Telemedicina e Telessaúde, presente no Mestrado
+            em Engenharia Biomédica pelo Instituto Superior de Engenharia do Porto.
+        </p>
+        <p class="w3-large">
+            NeuroDraw não é uma marca registada.
+        </p>
+        <img src="../static/iseplogo.png" class="fotoFooter">
+    </footer>
+
+</body>
+
+</html>

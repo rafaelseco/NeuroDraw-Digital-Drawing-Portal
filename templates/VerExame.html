@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ver Exames - NeuroDraw | Porto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logoCinzento.png') }}">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"><!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.5vw;
+        }
+
+        h1 {
+            font-size: 2.8vw;
+        }
+
+        .logos {
+            position: relative;
+            top: 30px;
+            left: 72%;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: black;
+            padding: 6px;
+            font-family: 'Gill Sans MT', sans-serif;
+            z-index: 1;
+        }
+
+        .icon {
+            font-size: 3vw;
+            /* Define o tamanho padrão dos ícones */
+        }
+
+        .greeting {
+            position: relative;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 5vw;
+        }
+
+        .flex2 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .groove {
+            border-style: groove;
+            border-color: black;
+        }
+
+        .imagem2 {
+            width: 8vw;
+        }
+
+        .card,
+        .card1 {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 15px;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .card {
+            width: 25vw;
+            height: 32.5vw;
+        }
+
+        .card1 {
+            width: 60vw;
+            height: 32.5vw;
+        }
+
+        .card .logosMarcacoes {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 20px;
+        }
+
+        .card .logoMarcacoes2 {
+            position: absolute;
+            top: 20px;
+            left: 65px;
+            font-size: 20px;
+        }
+
+        .card .logosAddMarcacoes {
+            position: absolute;
+            top: 12px;
+            right: 10px;
+            font-size: 20px;
+        }
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+
+        .row {
+            display: flex;
+        }
+
+        .title {
+            color: grey;
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        /* Create two equal columns that sits next to each other */
+        .column {
+            flex: 50%;
+            padding: 10px;
+            height: 68px;
+            cursor: pointer;
+        }
+
+        .botaosubmit {
+            position: relative;
+            width: 35%;
+            height: 2.5vw;
+            top: 5px;
+            left: 0%;
+            font-size: 1.3vw;
+            background-color: grey;
+            /* Cor de fundo */
+            border: none;
+            color: white;
+            /* Cor do texto */
+            /* Espaçamento interno */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 10px;
+            /* Borda arredondada */
+        }
+
+        .botaosubmit:hover {
+            background-color: darkgrey;
+        }
+
+        .file2 {
+            width: 58%;
+        }
+
+        .tablink {
+            font-size: 2.8vw;
+        }
+
+        .showNotificacoes {
+            position: absolute;
+            display: none;
+            top: 4vw;
+            right: 10vw;
+            width: 30vw;
+            height: 30vw;
+            background-color: white;
+            z-index: 3;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            overflow-y: scroll;
+        }
+
+        .subtituloCaixa {
+            font-size: 1.5vw;
+            text-align: left;
+            margin-inline-start: 20px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .dentroCaixaNotificacoes {
+            font-size: 1.3vw;
+            text-align: left;
+            margin-inline-start: 10px;
+        }
+
+
+
+        @media (max-width: 900px) {
+
+            .card,
+            .card1 {
+                width: 90vw;
+                height: 65vw;
+            }
+
+            .botao1 {
+                left: 35%;
+                width: 20%;
+                font-size: 3vw;
+            }
+
+            .icon {
+                font-size: 6vw;
+            }
+
+            .imagem2 {
+                width: 15vw;
+            }
+
+            .logos {
+                position: relative;
+                top: 20px;
+                left: 40%;
+            }
+
+            body {
+                font-size: 2.5vw;
+            }
+
+            .titulo {
+                font-size: 4vw;
+            }
+
+            h1 {
+                font-size: 5vw;
+            }
+
+            .tablink {
+                font-size: 5vw;
+            }
+        }
+
+        @media (max-width: 450px) {
+            body {
+                font-size: 4vw;
+            }
+
+            h1 {
+                font-size: 5vw;
+            }
+
+            .tablink {
+                font-size: 5vw;
+            }
+
+            .greeting {
+                font-size: 7vw;
+            }
+
+
+            .card {
+                width: 90vw;
+                height: 50vw;
+            }
+
+            .card1 {
+                width: 90vw;
+                height: 80vw;
+            }
+
+            .titulo {
+                font-size: 6vw;
+            }
+
+            .file {
+                width: 100%;
+            }
+
+            .paragrafo {
+                font-size: 6vw;
+            }
+
+            textarea {
+                width: 100%;
+                height: 4rem;
+            }
+
+            .botaosubmit {
+                left: 10%;
+                width: 60%;
+                height: 6vw;
+                font-size: 3vw;
+            }
+
+            .file2 {
+                width: 100%;
+            }
+
+            .subtituloCaixa {
+                font-size: 4vw;
+                text-align: left;
+                margin-inline-start: 10px;
+                font-style: italic;
+                font-weight: bold;
+            }
+
+            .dentroCaixaNotificacoes {
+                font-size: 3vw;
+                text-align: left;
+                margin-inline-start: 5px;
+            }
+
+            .showNotificacoes {
+                position: absolute;
+                display: none;
+                top: 10vw;
+                right: 5vw;
+                width: 80vw;
+                height: 70vw;
+                background-color: white;
+                z-index: 3;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            }
+        }
+
+
+        /* Fade in tabs */
+        @-webkit-keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script>
+        function redirecionar(id, data) {
+            // Faça algo com o ID e a opção selecionada
+
+            window.location.href = "/VerExame?id=" + id + "&data=" + data;
+        }
+
+        function FuncaoMostrarNots() {
+
+            if (document.getElementById("placaNotificacoes").style.display == "none") {
+                document.getElementById("placaNotificacoes").style.display = "block";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+            else {
+                document.getElementById("placaNotificacoes").style.display = "none";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+        }
+    </script>
+</head>
+
+
+<body class="w3-light-grey">
+
+    <script src="https://kit.fontawesome.com/beb9d57fcc.js" crossorigin="anonymous"></script>
+
+    <div class="flex2">
+        <a href="/Portal"><img src="../static/logoCinzento.png" alt="Logo do NeuroDraw" class="imagem2"
+                id="imagem2"></a>
+
+        <div class="logos">
+            <a href="#" onclick="FuncaoMostrarNots()"><i class="icon fa-regular fa-bell"></i></a>
+
+            <div class="showNotificacoes w3-card-4 w3-center" id="placaNotificacoes">
+
+                <h6 style="padding: 5px;"><b>Lista de Notificações</h6></b>
+
+                {% if ListaNotifics %}
+                <p class="subtituloCaixa">Exames</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'exames' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} concluiu um exame!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+            </div>
+            <a href="/Mensagens"><i class="icon fa-regular fa-comments"></i></a>
+            <a href="/GerirConta"><i class="icon fa-solid fa-user-doctor"></i></a>
+            <a href="/logout"><i class="icon fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+    </div>
+
+    <section class="w3-row-padding w3-center w3-light-grey">
+        <div>
+            <h1 class="greeting">Ver exames do paciente ID {{ id }}</h1>
+        </div>
+
+        <div class="flex">
+            <div class="card w3-white" style="overflow-y: auto; padding: 15px;z-index: 0;">
+
+                <h1 style="color:dimgray"><b><em>Exames Realizados</em></b></h1>
+
+                {% if ListaDatas %}
+                {% for item in ListaDatas %}
+                <div class="row mb-3 align-items-center" id="ListaMarcacoes"
+                    style="border-bottom: 2px solid #ddd; z-index: 0;">
+                    <div class="col-10">
+                        <p class="paragrafo" id="paragrafo"> {{ item['Data'] }}</p>
+                    </div>
+                    <div class="col-2">
+                        <a onclick="redirecionar('{{ idpessoa }}', '{{ item['ID'] }}')"><i
+                                class="icon fa-solid fa-arrow-right" style="cursor: pointer;"></i></a>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="card1 w3-white" style="overflow-y: auto; padding: 15px;z-index: 0;">
+
+                <!--<h1 style="color:dimgray"><b><em>Informações</em></b></h1>-->
+                <!--<div class="tab">-->
+                <div class="row">
+                    <div class="column tablink" onclick="mostrarExame(event, 'info')" style="color:dimgray;"
+                        id="defaultOpen"><b><em>Informações</div></em></b>
+                    <div class="column tablink" onclick="mostrarExame(event, 'file')" style="color:dimgray;">
+                        <b><em>Ficheiro
+                    </div></em></b>
+                </div>
+                {% if mensagem %}
+                <p class="title" style="display: block;">{{ mensagem }}</p>
+                {% endif %}
+
+                {% if ListaDados %}
+                {% for item in ListaDados %}
+                <div id="info" class="info">
+                    <div class="row mb-3 align-items-center " style="border-bottom: 2px solid #ddd;">
+                        <div class="col-6">
+                            <p><b>Dificuldade</b></p>
+                        </div>
+                        <div class="col-6">
+                            {% if item['ID_Dificuldade']==1 %}
+                            <p><em>Fácil</em></p>
+                            {% elif item['ID_Dificuldade']==2 %}
+                            <p><em>Médio</em></p>
+                            {% else %}
+                            <p><em>Difícil</em></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row mb-3 align-items-center" style="border-bottom: 2px solid #ddd;">
+                        <div class="col-6">
+                            <p><b>Erro Quadrático Médio</b></p>
+                        </div>
+                        <div class="col-6">
+                            <p><em>{{ item['Erro'] }}</em></p>
+                        </div>
+                    </div>
+                    <div class="row mb-3 align-items-center" style="border-bottom: 2px solid #ddd;">
+                        <div class="col-6">
+                            <p><b>Percentagem de Acerto</b></p>
+                        </div>
+                        <div class="col-6">
+                            <p><em>{{ item['PercentagemAcerto'] }} %</em></p>
+                        </div>
+                    </div>
+                    <div class="row mb-3 align-items-center" style="border-bottom: 2px solid #ddd;">
+                        <div class="col-6">
+                            <p><b>Tempo de execução</b></p>
+                        </div>
+                        <div class="col-6">
+                            <p><em>{{ item['Tempo'] }} s</em></p>
+                        </div>
+                    </div>
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-6">
+                            <p><b>Anotações</b></p>
+                        </div>
+                        <div class="col-6">
+                            <form action="/VerExame" method="POST">
+                                {% if item['Anotacoes'] %}
+                                <textarea id="fname" name="fname" rows="2" cols="30"
+                                    style="border: none;">{{ item['Anotacoes'] }}</textarea><br>
+                                {% else %}
+                                <textarea id="fname" name="fname" rows="2" cols="30" style="border: none;"
+                                    placeholder="Escreva as anotações necessárias"></textarea><br>
+                                {% endif %}
+                                <input type="submit" value="Guardar" class="botaosubmit">
+                            </form>
+
+                            <!--<p><em>{{ item['Anotacoes'] }}</em></p>-->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="file" class="file" style="display: none;">
+                    <img src="{{ item['Ficheiro'] }}" class="file2">
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <script>
+            function mostrarExame(evt, nome) {
+                var i, x, tablinks, y;
+                x = document.getElementsByClassName("info");
+                y = document.getElementsByClassName("file");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                    y[i].style.display = "none";
+
+                }
+                tablinks = document.getElementsByClassName("tablink");
+                for (i = 0; i < x.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" w3-border-red", "");
+                }
+                document.getElementById(nome).style.display = "block";
+                evt.currentTarget.firstElementChild.className += " w3-border-gray";
+            }
+        </script>
+    </section>
+</body>
+
+
+</html>

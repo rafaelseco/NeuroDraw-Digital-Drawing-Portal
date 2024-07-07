@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ver Informação - NeuroDraw | Porto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logoCinzento.png') }}">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"><!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.5vw;
+        }
+
+        h1 {
+            font-size: 2.8vw;
+        }
+
+        .logos {
+            position: relative;
+            top: 30px;
+            left: 72%;
+        }
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            vertical-align: middle;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+            padding: 6px;
+            font-family: 'Gill Sans MT', sans-serif;
+            z-index: 1;
+        }
+
+        .imagem2 {
+            width: 8vw;
+        }
+
+        .icon {
+            font-size: 3vw;
+            /* Define o tamanho padrão dos ícones */
+        }
+
+        .greeting {
+            position: relative;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 5vw;
+        }
+
+        .groove {
+            border-style: groove;
+            border-color: black;
+        }
+
+        .botao1 {
+            position: relative;
+            width: 10%;
+            top: 10px;
+            left: 37.7%;
+            background-color: rgb(216, 216, 216, 0.2);
+            border-color: black;
+            color: black;
+            font-weight: bold;
+        }
+
+        .botao1:hover {
+            background-color: darkgrey;
+            /* Cor de fundo ao passar o mouse */
+            border-color: darkgrey;
+            color: white;
+        }
+
+        .fotomesmo {
+            width: 100%;
+        }
+
+        .flex2 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            width: 35vw;
+            margin: auto;
+            height: 20vw;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .foto {
+            height: 20vw;
+            width: 20vw;
+            margin: auto;
+        }
+
+        .mapa {
+            width: 60vw;
+            height: 30vw;
+        }
+
+        .showNotificacoes {
+            position: absolute;
+            display: none;
+            top: 4vw;
+            right: 10vw;
+            width: 30vw;
+            height: 30vw;
+            background-color: white;
+            z-index: 3;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            overflow-y: scroll;
+        }
+
+        .subtituloCaixa {
+            font-size: 1.5vw;
+            text-align: left;
+            margin-inline-start: 20px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .dentroCaixaNotificacoes {
+            font-size: 1.3vw;
+            text-align: left;
+            margin-inline-start: 10px;
+        }
+
+        @media (max-width: 900px) {
+
+            .card,
+            .foto {
+                width: 90vw;
+                height: 65vw;
+            }
+
+            .botao1 {
+                left: 35%;
+                width: 20%;
+                font-size: 3vw;
+            }
+
+            .icon {
+                font-size: 6vw;
+            }
+
+            .imagem2 {
+                width: 15vw;
+            }
+
+            .logos {
+                position: relative;
+                top: 20px;
+                left: 40%;
+            }
+
+            body {
+                font-size: 2.5vw;
+            }
+
+            .titulo {
+                font-size: 4vw;
+            }
+        }
+
+        @media (max-width: 450px) {
+            body {
+                font-size: 4vw;
+            }
+
+            .greeting {
+                font-size: 7vw;
+            }
+
+
+            .card {
+                width: 90vw;
+                height: 65vw;
+                margin-top: 20px;
+            }
+
+            .foto {
+                width: 90vw;
+                height: 35vw;
+            }
+
+            .titulo {
+                font-size: 6vw;
+            }
+
+            .fotomesmo {
+                width: 40%;
+            }
+
+            .botao1 {
+                left: 37%;
+            }
+
+            .mapa {
+                width: 90vw;
+                height: 90vw;
+                z-index: 1;
+            }
+
+            .subtituloCaixa {
+                font-size: 4vw;
+                text-align: left;
+                margin-inline-start: 10px;
+                font-style: italic;
+                font-weight: bold;
+            }
+
+            .dentroCaixaNotificacoes {
+                font-size: 3vw;
+                text-align: left;
+                margin-inline-start: 5px;
+            }
+
+            .showNotificacoes {
+                position: absolute;
+                display: none;
+                top: 10vw;
+                right: 5vw;
+                width: 80vw;
+                height: 70vw;
+                background-color: white;
+                z-index: 3;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            }
+
+        }
+    </style>
+
+    <script>
+
+
+        function FuncaoMostrarNots() {
+
+            if (document.getElementById("placaNotificacoes").style.display == "none") {
+                document.getElementById("placaNotificacoes").style.display = "block";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+            else {
+                document.getElementById("placaNotificacoes").style.display = "none";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+        }
+    </script>
+</head>
+
+
+<body class="w3-light-grey">
+
+    <script src="https://kit.fontawesome.com/beb9d57fcc.js" crossorigin="anonymous"></script>
+
+
+    <div class="flex2">
+        <a href="/Portal"><img src="../static/logoCinzento.png" alt="Logo do NeuroDraw" class="imagem2"
+                id="imagem2"></a>
+
+        <div class="logos">
+            <a href="#" onclick="FuncaoMostrarNots()"><i class="icon fa-regular fa-bell"></i></a>
+
+            <div class="showNotificacoes w3-card-4 w3-center" id="placaNotificacoes">
+
+                <h6 style="padding: 5px;"><b>Lista de Notificações</h6></b>
+
+                {% if ListaNotifics %}
+                <p class="subtituloCaixa">Marcação de exames</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'exames' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        Foi marcado um exame para o seguinte dia e hora: {{ linha ['data'] }}!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+                <p class="subtituloCaixa">Marcação de consulta</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'consulta' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        Foi marcada uma consulta para o seguinte dia e hora: {{ linha ['data'] }}!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+
+                {% endif %}
+
+            </div>
+            <a href="/Mensagens"><i class="icon fa-regular fa-comments"></i></a>
+            <a href="/GerirConta"><i class="icon fa-regular fa-user"></i></a>
+            <a href="/logout"><i class="icon fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+    </div>
+
+    <section class="w3-row-padding w3-center w3-light-grey">
+        <div>
+            <h1 class="greeting">Onde será a sua consulta?</h1>
+        </div>
+
+        <div class="flex">
+            <div id="map" style="margin: auto;" class="mapa w3-center groove"></div>
+
+            <div class="card w3-white" style="overflow-y: auto; padding: 15px;">
+                <div class="row mb-3 align-items-center" style="border-bottom: 2px solid #ddd;">
+                    <div class="col-6">
+                        <p><b>Hospital</b></p>
+                    </div>
+                    <div class="col-6">
+                        <p><em>Hospital de São João</em></p>
+                    </div>
+                </div>
+                <div class="row mb-3 align-items-center" style="border-bottom: 2px solid #ddd;">
+                    <div class="col-6">
+                        <p><b>Cidade</b></p>
+                    </div>
+                    <div class="col-6">
+                        <p><em>Porto</em></p>
+                    </div>
+                </div>
+                <div class="row mb-3 align-items-center" style="border-bottom: 2px solid #ddd;">
+                    <div class="col-6">
+                        <p><b>Coordenadas GPS</b></p>
+                    </div>
+                    <div class="col-6">
+                        <p><em>41.1829, -8.6002</em></p>
+                    </div>
+                </div>
+                <div class="row mb-3 align-items-center" style="border-bottom: 2px solid #ddd;">
+                    <div class="col-6">
+                        <p><b>Sala</b></p>
+                    </div>
+                    <div class="col-6">
+                        <p><em>H424</em></p>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <form action="/LocalizacaoConsulta" method="POST">
+            <button type="submit" class="btn btn-primary botao1">Anterior</button>
+        </form>
+
+    </section>
+
+
+    <script>
+        var map = L.map('map').setView([41.182915291559596, -8.600239622477707], 16);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var marcador = L.marker([41.182915291559596, -8.600239622477707]);
+        marcador.addTo(map);
+    </script>
+
+</body>
+
+
+</html>

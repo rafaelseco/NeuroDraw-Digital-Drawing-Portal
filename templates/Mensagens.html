@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Caixa de Entrada - NeuroDraw | Porto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logoCinzento.png') }}">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"><!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
+
+
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.5vw;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+            padding: 6px;
+            font-family: 'Gill Sans MT', sans-serif;
+            z-index: 1;
+        }
+
+        .card,
+        .card1 {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 15px;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .card {
+            width: 25vw;
+            height: 31.5vw;
+        }
+
+        .card1 {
+            width: 60vw;
+            height: 31.5vw;
+        }
+
+
+        .logos {
+            position: relative;
+            top: 30px;
+            left: 72%;
+        }
+
+        .imagem2 {
+            width: 8vw;
+        }
+
+
+        .greeting {
+            position: relative;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 5vw;
+        }
+
+
+        .flex2 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .container-fluid {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            height: 500px;
+            position: relative;
+        }
+
+        .chat-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .contact-info {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .contact-info h3 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .contact-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            max-height: 400px;
+        }
+
+        .contact-list-item {
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .contact-list-item:hover {
+            background-color: #e2e6ea;
+        }
+
+        .contact-list-item.active {
+            background-color: #ccc;
+        }
+
+        .chat-content {
+            flex: 2;
+            padding: 20px;
+            background-color: #fff;
+            overflow-y: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .chat-header {
+            color: #000 !important;
+            padding: 10px 15px !important;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .chat-header h2 {
+            margin: 0;
+        }
+
+        .chat-messages {
+            padding: 10px;
+            overflow-y: scroll;
+            height: 42vh;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            position: relative;
+            padding: 10px;
+            border-radius: 10px;
+            width: fit-content;
+            max-width: 55%;
+            /* Máximo de 55% de ocupação */
+            word-wrap: break-word;
+            /* Quebra de linha */
+            margin-left: auto;
+            /* Mover a mensagem para a direita */
+        }
+
+        .message.user-message {
+            background-color: #d8d8d8;
+            /* Alterado para w3-light-grey */
+            align-self: flex-end;
+            color: #000;
+        }
+
+        .message.other-message {
+            background-color: #bababa;
+            align-self: flex-start;
+            color: #000;
+            margin-left: 1px;
+            width: fit-content;
+            max-width: 55%;
+        }
+
+        .message.user-message::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: -7px;
+            border-width: 10px 0 0 10px;
+            border-style: solid;
+            border-color: transparent #d8d8d8;
+            /* Alterado para w3-light-grey */
+            z-index: 1;
+        }
+
+        .message.other-message::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -7px;
+            border-width: 10px 10px 0 0;
+            border-style: solid;
+            border-color: transparent #bababa;
+            z-index: 1;
+        }
+
+        .message p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .chat-input {
+            position: relative;
+            margin-top: auto;
+            /* Alinha a caixa de entrada à direita */
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 20px;
+
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-input input[type="text"] {
+            width: calc(100% - 120px);
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+
+        .chat-input input[type="text"]::placeholder {
+            color: #999;
+        }
+
+        .chat-input button {
+            border: none;
+            width: 90px;
+            background-color: #343a40 !important;
+            color: #fff !important;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .chat-input button:hover {
+            background-color: #212529 !important;
+        }
+
+        .icon {
+            font-size: 3vw;
+            /* Define o tamanho padrão dos ícones */
+        }
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .showNotificacoes {
+            position: absolute;
+            display: none;
+            top: 4vw;
+            right: 10vw;
+            width: 30vw;
+            height: 30vw;
+            background-color: white;
+            z-index: 3;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            overflow-y: scroll;
+        }
+
+        .subtituloCaixa {
+            font-size: 1.5vw;
+            text-align: left;
+            margin-inline-start: 20px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .dentroCaixaNotificacoes {
+            font-size: 1.3vw;
+            text-align: left;
+            margin-inline-start: 10px;
+        }
+
+
+
+
+        @media (max-width: 450px) {
+            body {
+                font-size: 4vw;
+            }
+
+            h1 {
+                font-size: 5vw;
+            }
+
+            .icon {
+                font-size: 6vw;
+            }
+
+            .imagem2 {
+                width: 15vw;
+            }
+
+            .greeting {
+                font-size: 7vw;
+            }
+
+            .logos {
+                position: relative;
+                top: 20px;
+                left: 50%;
+            }
+
+            .card {
+                width: 90vw;
+                height: 50vw;
+            }
+
+            .card1 {
+                width: 90vw;
+                height: 80vw;
+            }
+
+            .chat-messages {
+                padding: 10px;
+                overflow-y: scroll;
+                height: 25vh;
+            }
+
+            .message p {
+                margin: 0;
+                font-size: 10px;
+            }
+
+            .subtituloCaixa {
+                font-size: 4vw;
+                text-align: left;
+                margin-inline-start: 10px;
+                font-style: italic;
+                font-weight: bold;
+            }
+
+            .dentroCaixaNotificacoes {
+                font-size: 3vw;
+                text-align: left;
+                margin-inline-start: 5px;
+            }
+
+            .showNotificacoes {
+                position: absolute;
+                display: none;
+                top: 10vw;
+                right: 5vw;
+                width: 80vw;
+                height: 70vw;
+                background-color: white;
+                z-index: 3;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            }
+
+
+        }
+    </style>
+
+    <script>
+        function FuncaoMostrarNots() {
+
+            if (document.getElementById("placaNotificacoes").style.display == "none") {
+                document.getElementById("placaNotificacoes").style.display = "block";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+            else {
+                document.getElementById("placaNotificacoes").style.display = "none";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+        }
+    </script>
+</head>
+
+<body class="w3-light-grey">
+
+    <script src="https://kit.fontawesome.com/beb9d57fcc.js" crossorigin="anonymous"></script>
+
+    <div class="flex2">
+
+        <a href="/Portal"><img src="../static/logoCinzento.png" alt="Logo do NeuroDraw" class="imagem2"
+                id="imagem2"></a>
+
+        {% if Funcao==1 %}
+        <div class="logos">
+            <a href="#" onclick="FuncaoMostrarNots()"><i class="icon fa-regular fa-bell"></i></a>
+
+            <div class="showNotificacoes w3-card-4 w3-center" id="placaNotificacoes">
+
+                <h6 style="padding: 5px;"><b>Lista de Notificações</h6></b>
+
+                {% if ListaNotifics %}
+                <p class="subtituloCaixa">Formulário</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'formularioContacto' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} submeteu um formulário de contacto!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+                <p class="subtituloCaixa">Médicos</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'medicos' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} registou-se como médico!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+
+                <p class="subtituloCaixa">Pacientes</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'pacientes' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} registou-se como paciente!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+                <p class="subtituloCaixa">Exames</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'exames' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} concluiu um exame!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+
+                {% endif %}
+
+            </div>
+            <a href="/Estatisticas"><i class="icon fa-solid fa-chart-column"></i></i></a>
+            <a href="/logout"><i class="icon fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+        {% endif %}
+
+        {% if Funcao==2 %}
+        <div class="logos">
+            <a href="#" onclick="FuncaoMostrarNots()"><i class="icon fa-regular fa-bell"></i></a>
+
+            <div class="showNotificacoes w3-card-4 w3-center" id="placaNotificacoes">
+
+                <h6 style="padding: 5px;"><b>Lista de Notificações</h6></b>
+
+                {% if ListaNotifics %}
+                <p class="subtituloCaixa">Exames</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'exames' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        {{ linha['Nome'] }} {{ linha['Apelido'] }} concluiu um exame!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+            </div>
+            <a href="/GerirConta"><i class="icon fa-solid fa-user-doctor"></i></i></a>
+            <a href="/logout"><i class="icon fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+        {% endif %}
+
+        {% if Funcao==3 %}
+        <div class="logos">
+            <a href="#" onclick="FuncaoMostrarNots()"><i class="icon fa-regular fa-bell"></i></a>
+
+            <div class="showNotificacoes w3-card-4 w3-center" id="placaNotificacoes">
+
+                <h6 style="padding: 5px;"><b>Lista de Notificações</h6></b>
+
+                {% if ListaNotifics %}
+                <p class="subtituloCaixa">Marcação de exames</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'exames' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        Foi marcado um exame para o seguinte dia e hora: {{ linha ['data'] }}!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+                <p class="subtituloCaixa">Marcação de consulta</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'consulta' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        Foi marcada uma consulta para o seguinte dia e hora: {{ linha ['data'] }}!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+                {% else %}
+                <p>Não tem notificações.</p>
+
+
+                {% endif %}
+
+            </div>
+            <a href="/GerirConta"><i class="icon fa-regular fa-user"></i></i></a>
+            <a href="/logout"><i class="icon fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <section class="w3-row-padding w3-center w3-light-grey">
+
+        <div>
+            <h1 class="greeting">Caixa de Entrada</h1>
+        </div>
+
+        {% if mensagem %}
+        <p>{{ mensagem }}</p>
+        {% else %}
+        <div class="flex">
+            <div class="card w3-white" style="overflow-y: auto; padding: 15px;z-index: 0;">
+
+                <h1 style="color:dimgray"><b><em>Contactos</em></b></h1>
+
+                {% if Contactos %}
+                {% for contacto in Contactos %}
+                <div class="row mb-3 align-items-center" id="ListaMarcacoes"
+                    style="border-bottom: 2px solid #ddd; z-index: 0;list-style-type: none;">
+                    <li class="contact-list-item" data-id="{{ contacto.NIF }}">{{ contacto.Nome }} {{
+                        contacto.Apelido
+                        }}</li>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>Não tem contactos associados. Vá a 'Gerir Conta' para regularizar esta situação.</p>
+                {% endif %}
+
+            </div>
+
+            <div class="card1 w3-white" style="overflow-y: auto; padding: 15px;z-index: 0;">
+
+                <h1 style="color:dimgray"><b><em>Conversa</em></b></h1>
+                <div class="chat-messages" id="chat-messages">
+
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="message-input" placeholder="Digite sua mensagem">
+                    <button id="send-button">Enviar</button>
+                </div>
+
+
+            </div>
+        </div>
+        {% endif %}
+
+
+
+
+
+
+    </section>
+
+    <!-- Bootstrap e jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Script para manipulação do chat -->
+    <script>
+        $(document).ready(function () {
+            function addMessage(message, isUser) {
+                var messageClass = isUser ? 'user-message' : 'other-message';
+                $('#chat-messages').append('<div class="message ' + messageClass + '"><p>' + message + '</p></div>');
+                $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+            }
+
+            $('.contact-list-item').click(function () {
+                $('.contact-list-item').removeClass('active');
+                $(this).addClass('active');
+
+                var dataId = $(this).data('id');
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Mensagens',
+                    data: { recipient: dataId },
+                    success: function (response) {
+                        // Verifique se a resposta tem a estrutura esperada
+                        if (response && response.Mensagens) {
+                            $('#chat-messages').empty(); // Limpar mensagens antigas
+                            response.Mensagens.forEach(function (item) {
+                                // Verifique se item.Emissor e item.Destinatario são strings
+                                if (String(item.Emissor) === String(dataId)) {
+                                    addMessage(item.Conteudo, false);
+                                } else {
+                                    addMessage(item.Conteudo, true);
+                                }
+                            });
+                        } else {
+                            console.error('Formato de resposta inválido:', response);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Erro ao obter histórico de mensagens:', error);
+                    }
+                });
+            });
+
+            $('#send-button').click(function () {
+                var message = $('#message-input').val().trim();
+                if (message !== '') {
+                    var dataId = $('.contact-list-item.active').data('id');
+                    var currentDate = new Date();
+                    var currentTime = currentDate.toLocaleTimeString();
+                    var currentDateFormatted = currentDate.toLocaleDateString();
+
+                    addMessage(message, true);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Mensagens',
+                        data: {
+                            message: message,
+                            currentTime: currentTime,
+                            currentDateFormatted: currentDateFormatted,
+                            recipient: dataId
+                        },
+                        success: function (response) {
+                            console.log('Mensagem enviada com sucesso para o servidor!');
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Erro ao enviar mensagem para o servidor:', error);
+                        }
+                    });
+
+                    $('#message-input').val('');
+                }
+            });
+
+            $('#message-input').keypress(function (event) {
+                if (event.which == 13) {
+                    $('#send-button').click();
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+</body>

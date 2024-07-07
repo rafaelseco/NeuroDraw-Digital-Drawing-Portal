@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Exame - NeuroDraw | Porto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logoCinzento.png') }}">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"><!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 22px;
+        }
+
+        .imagem2 {
+            width: 8vw;
+        }
+
+
+        .logos {
+            position: relative;
+            top: 30px;
+            left: 72%;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: black;
+            padding: 6px;
+            font-family: 'Gill Sans MT', sans-serif;
+            z-index: 1;
+        }
+
+        .flex2 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .icon {
+            font-size: 3vw;
+            /* Define o tamanho padrão dos ícones */
+        }
+
+        .greeting {
+            position: relative;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 5vw;
+        }
+
+        .groove {
+            border-style: groove;
+            border-color: black;
+        }
+
+        .botao1 {
+            position: relative;
+            width: 20%;
+            background-color: rgb(216, 216, 216, 0.2);
+            border-color: green;
+            color: green;
+            font-weight: bold;
+        }
+
+        .botao1:hover {
+            background-color: green;
+            /* Cor de fundo ao passar o mouse */
+            border-color: green;
+            color: white;
+        }
+
+        .botao2 {
+            position: relative;
+            width: 20%;
+            background-color: rgb(216, 216, 216, 0.2);
+            border-color: yellowgreen;
+            color: yellowgreen;
+            font-weight: bold;
+        }
+
+        .botao2:hover {
+            background-color: yellowgreen;
+            /* Cor de fundo ao passar o mouse */
+            border-color: yellowgreen;
+            color: white;
+        }
+
+        .botao3 {
+            position: relative;
+            width: 20%;
+            background-color: rgb(216, 216, 216, 0.2);
+            border-color: red;
+            color: red;
+            font-weight: bold;
+        }
+
+        .botao3:hover {
+            background-color: red;
+            /* Cor de fundo ao passar o mouse */
+            border-color: red;
+            color: white;
+        }
+
+        .botao4 {
+            position: relative;
+            width: 20%;
+            background-color: rgb(216, 216, 216, 0.2);
+            border-color: black;
+            color: black;
+            font-weight: bold;
+        }
+
+        .botao4:hover {
+            background-color: darkgrey;
+            /* Cor de fundo ao passar o mouse */
+            border-color: darkgrey;
+            color: white;
+        }
+
+        .botao5 {
+            position: relative;
+            width: 20%;
+            background-color: rgb(216, 216, 216, 0.2);
+            border-color: black;
+            color: black;
+            font-weight: bold;
+        }
+
+        .botao5:hover {
+            background-color: darkgrey;
+            /* Cor de fundo ao passar o mouse */
+            border-color: darkgrey;
+            color: white;
+        }
+
+        .botao6 {
+            position: relative;
+            width: 20%;
+            background-color: rgb(216, 216, 216, 0.2);
+            border-color: black;
+            color: black;
+            font-weight: bold;
+        }
+
+        .botao6:hover {
+            background-color: darkgrey;
+            /* Cor de fundo ao passar o mouse */
+            border-color: darkgrey;
+            color: white;
+        }
+
+        .contentor1 {
+            position: relative;
+            width: 100%;
+        }
+
+        .explicacao {
+            position: relative;
+            width: 100%;
+            font-size: 1.5vw;
+        }
+
+        .showNotificacoes {
+            position: absolute;
+            display: none;
+            top: 4vw;
+            right: 10vw;
+            width: 30vw;
+            height: 30vw;
+            background-color: white;
+            z-index: 3;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            overflow-y: scroll;
+        }
+
+        .subtituloCaixa {
+            font-size: 1.5vw;
+            text-align: left;
+            margin-inline-start: 20px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .dentroCaixaNotificacoes {
+            font-size: 1.3vw;
+            text-align: left;
+            margin-inline-start: 10px;
+        }
+
+        @media (max-width: 450px) {
+            .imagem2 {
+                width: 15vw;
+            }
+
+            .explicacao {
+                position: relative;
+                width: 100%;
+                font-size: 4vw;
+            }
+
+            .logos {
+                position: relative;
+                top: 20px;
+                left: 37%;
+            }
+
+            .icon {
+                font-size: 6vw;
+                /* Define o tamanho padrão dos ícones */
+            }
+
+            .greeting {
+                position: relative;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                font-size: 7vw;
+            }
+
+            .botao4,
+            .botao5,
+            .botao6 {
+                width: 45%;
+                font-size: 3.5vw;
+            }
+
+            .subtituloCaixa {
+                font-size: 4vw;
+                text-align: left;
+                margin-inline-start: 10px;
+                font-style: italic;
+                font-weight: bold;
+            }
+
+            .dentroCaixaNotificacoes {
+                font-size: 3vw;
+                text-align: left;
+                margin-inline-start: 5px;
+            }
+
+            .showNotificacoes {
+                position: absolute;
+                display: none;
+                top: 10vw;
+                right: 5vw;
+                width: 80vw;
+                height: 70vw;
+                background-color: white;
+                z-index: 3;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            }
+        }
+    </style>
+
+    <script>
+        function FuncaoMostrarNots() {
+
+            if (document.getElementById("placaNotificacoes").style.display == "none") {
+                document.getElementById("placaNotificacoes").style.display = "block";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+            else {
+                document.getElementById("placaNotificacoes").style.display = "none";
+                document.getElementById("ListaMarcacoes").style.zIndex = 0;
+                document.getElementById("paragrafo").style.zIndex = 0;
+                document.getElementById("placaNotificacoes").style.zIndex = 4;
+            }
+
+        }
+    </script>
+</head>
+
+
+<body class="w3-light-grey">
+
+    <script src="https://kit.fontawesome.com/beb9d57fcc.js" crossorigin="anonymous"></script>
+
+
+    <div class="flex2">
+        <a href="/Portal"><img src="../static/logoCinzento.png" alt="Logo do NeuroDraw" class="imagem2"
+                id="imagem2"></a>
+
+        <div class="logos">
+            <a href="#" onclick="FuncaoMostrarNots()"><i class="icon fa-regular fa-bell"></i></a>
+
+            <div class="showNotificacoes w3-card-4 w3-center" id="placaNotificacoes">
+
+                <h6 style="padding: 5px;"><b>Lista de Notificações</h6></b>
+
+                {% if ListaNotifics %}
+                <p class="subtituloCaixa">Marcação de exames</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'exames' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        Foi marcado um exame para o seguinte dia e hora: {{ linha ['data'] }}!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+                <p class="subtituloCaixa">Marcação de consulta</p>
+                {% for linha in ListaNotifics %}
+                {% if linha['tema'] == 'consulta' %}
+                <ul class="dentroCaixaNotificacoes">
+                    <li>
+                        Foi marcada uma consulta para o seguinte dia e hora: {{ linha ['data'] }}!
+                    </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+
+
+                {% endif %}
+
+            </div>
+
+            <a href="/Mensagens"><i class="icon fa-regular fa-comments"></i></a>
+            <a href="/GerirConta"><i class="icon fa-regular fa-user"></i></a>
+            <a href="/logout"><i class="icon fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+
+    </div>
+
+    <section class="w3-row-padding w3-center w3-light-grey">
+        <div>
+            <h1 class="greeting">Exame</h1>
+        </div>
+
+        {% if etapa %}
+        <div class="container w3-center">
+            <div class="row">
+                <div class="col-lg-8  offset-lg-2">
+                    <p class="explicacao">Irá realizar o exame destinado a auxiliar o diagnóstico e a evolução da doença
+                        de Parkinson.</p>
+                    <p class="explicacao">Após a escolha da dificuldade, a câmara do seu computador irá captar um vídeo
+                        e tentará detetar a sua mão. No final, apenas será guardado o seu desenho virtual.</p>
+                </div>
+            </div>
+            <div class="row contentor1">
+                <form action="/FazerExame" method="POST">
+                    <button type="submit" class="btn btn-primary botao1" name="BotaoEscolhido"
+                        value="Facil">Fácil</button>
+                    <button type="submit" class="btn btn-primary botao2" name="BotaoEscolhido"
+                        value="Medio">Médio</button>
+                    <button type="submit" class="btn btn-primary botao3" name="BotaoEscolhido"
+                        value="Dificil">Difícil</button>
+                </form>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="container w3-center">
+            {% if erro %}
+            <div class="row">
+                <p style="color:red;">{{ erro }}</p>
+            </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-lg-8  offset-lg-2">
+                    <img src="{{ url_for('video_feed') }}" style="width:80%;position: relative;" class="groove">
+                </div>
+            </div>
+            <br>
+            <div class="row contentor1">
+                <form action="/FazerExame" method="POST">
+                    <button type="submit" class="btn btn-primary botao4" name="BotaoEscolhido" value="mudar">Mudar
+                        dificuldade</button>
+                    <button type="submit" class="btn btn-primary botao5" name="BotaoEscolhido"
+                        value="limpar">Limpar</button>
+                    <button type="submit" class="btn btn-primary botao6" name="BotaoEscolhido"
+                        value="submeter">Submeter</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+    </section>
+
+
+</body>
+
+
+</html>

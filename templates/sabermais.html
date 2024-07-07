@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - NeuroDraw | Porto</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logoCinzento.png') }}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .imagem2 {
+            width: 8vw;
+        }
+
+        body {
+            font-size: 1.5vw;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        p {
+            font-size: 1.2vw;
+        }
+
+        /* Style the header */
+        header {
+            padding: 6px;
+            text-align: center;
+            font-size: 45px;
+            color: black;
+            font-weight: bold;
+        }
+
+        /* Create two columns/boxes that floats next to each other */
+        nav {
+            float: left;
+            width: 40%;
+            background: "w3-pale-red";
+            padding: 20px;
+        }
+
+        /* Style the list inside the menu */
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        article {
+            float: left;
+            text-align: justify;
+            text-justify: inter-word;
+            padding: 30px;
+            width: 55%;
+            background-color: "w3-pale-red";
+        }
+
+        .article2 {
+            float: left;
+            text-align: justify;
+            text-justify: inter-word;
+            padding: 30px;
+            width: 100%;
+            background-color: "w3-pale-red";
+        }
+
+        /* Clear floats after the columns */
+        section::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+
+
+        .container {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+            font-family: 'Gill Sans MT', sans-serif;
+        }
+
+        .container .titulo {
+            position: relative;
+            align-content: center;
+            top: -25vw;
+            /*background: rgb(0, 0, 0);
+            Fallback color */
+            background: rgba(0, 0, 0, 0);
+            /* Black background with 0.5 opacity */
+            color: #ffffff;
+            width: 100%;
+            padding: 10px;
+            font-weight: 950;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-shadow: 1px 1px #a8a8a8, -1px -1px #a8a8a8, 1px -1px #a8a8a8, -1px 1px #a8a8a8;
+
+        }
+
+        .container img {
+            vertical-align: middle;
+        }
+
+        .imagem2 {
+            position: absolute;
+            top: 5px;
+            z-index: 1;
+            width: 8vw;
+        }
+
+        .groove {
+            border-style: groove;
+        }
+
+        .div2 {
+            margin-top: 10px;
+        }
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            position: relative;
+            width: 45%;
+            height: 25vw;
+            margin: auto;
+            margin-top: 0px;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .card2 {
+            position: relative;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            width: 55vw;
+            margin: auto;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .imagemNeuroDraw {
+            width: 37%;
+        }
+
+        @media (max-width: 450px) {
+
+            nav,
+            article {
+                width: 100%;
+                height: auto;
+            }
+
+            .fotoFooter {
+                width: 60%;
+            }
+
+            .imagem2 {
+                width: 15vw;
+            }
+
+            .container .titulo {
+                position: relative;
+                align-content: center;
+                top: -25vw;
+                /*background: rgb(0, 0, 0);
+            Fallback color */
+                background: rgba(0, 0, 0, 0);
+                /* Black background with 0.5 opacity */
+                color: #ffffff;
+                width: 100%;
+                padding: 10px;
+                font-weight: 950;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                text-shadow: 1px 1px #a8a8a8, -1px -1px #a8a8a8, 1px -1px #a8a8a8, -1px 1px #a8a8a8;
+
+            }
+
+            p {
+                font-size: 3vw;
+            }
+
+            .header2 {
+                font-size: 3vw;
+            }
+
+            .header1 {
+                font-size: 3vw;
+            }
+
+            .header3 {
+                font-size: 3.5vw;
+            }
+
+            .imagemNeuroDraw {
+                width: 50%;
+            }
+
+            .card {
+                position: relative;
+                width: 85%;
+                height: 50vw;
+                margin: auto;
+                margin-top: 10px;
+                text-align: center;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+
+            .card2 {
+                position: relative;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                width: 95%;
+                margin: auto;
+                text-align: center;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+
+            a {
+                font-size: 15px;
+            }
+
+            .botao {
+                font-size: 15px;
+            }
+
+        }
+    </style>
+</head>
+
+
+
+
+
+<body class="w3-light-grey">
+
+    <!-- Sidebar -->
+    <div class="w3-sidebar w3-animate-left w3-bar-block w3-border-right w3-dark-grey" style="display:none"
+        id="mySidebar">
+        <img src="../static/logobranco.png" alt="Logo do NeuroDraw" style="width:50%;cursor: pointer;" class="div2"
+            onclick="w3_close(1)">
+        <a href="/" class="w3-bar-item w3-button">Início</a>
+        <a href="/contactar" class="w3-bar-item w3-button">Contactos</a>
+        <div class="w3-dropdown-hover">
+            <button class="w3-button botao">MyNeuroDraw
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="w3-dropdown-content w3-bar-block w3-dark-grey">
+                <a href="/register" class="w3-bar-item w3-button" style="text-align: right;">Registar</a>
+                <a href="/login" class="w3-bar-item w3-button" style="text-align: right;">Entrar</a>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <!-- Page Content 
+    <div class="w3-dra">
+        <button class="w3-button w3-pale-red w3-xlarge w3-left-align" onclick="w3_open()"> ☰ Menu </button>
+        <div class="w3-container">
+        </div>
+    </div>-->
+
+    <section>
+        <div class="container">
+            <img src="../static/logobranco.png" alt="Logo do NeuroDraw" style="cursor: pointer;" onclick="w3_open(0)"
+                class="imagem2" id="imagem2">
+            <img src="../static/imagem4.jpg" style="opacity:0.5;width:100%;">
+
+            <div>
+                <header class="titulo">
+                    <h1 style="font-size: 3vw;"><b>Uma Jornada Transformadora para o Parkinson!</b></h1>
+                    <h3 style="font-size: 1.8vw;"><em>NO MUNDO ATUAL, DESTACA-SE A TECNOLOGIA E A INTEGRAÇÃO DO
+                            PACIENTE.</em></h3>
+                </header>
+            </div>
+        </div>
+    </section>
+
+    <section class="w3-light-grey w3-row-padding w3-center">
+        <div class="flex">
+            <div class="card w3-light-grey">
+                <h1 class="header1"><b><em>Uma nova perspetiva clínica</em></b></h1>
+                <p> O NeuroDraw é uma plataforma de apoio clínico remoto para doentes com Parkinson, inspirada numa
+                    viagem iniciada por três
+                    estudantes universitários. Inspirados pela nossa paixão pela tecnologia e pelo desejo de fazer a
+                    diferença nos cuidados
+                    de saúde, embarcamos num projeto com o objetivo de diferenciar e melhorar os cuidados clínicos para
+                    os doentes de Parkinson. </p>
+                <p> O NeuroDraw celebra não só o poder da tecnologia, mas também o espírito empreendedor e a dedicação à
+                    causa.</p>
+
+
+            </div>
+
+            <div class="card w3-light-grey">
+                <img src="../static/SobreNos.jpg" alt="Sobre Nós" style="width:80%">
+            </div>
+        </div>
+    </section>
+
+    <br>
+    <br>
+    <section class="w3-light-grey w3-row-padding w3-center">
+        <div class="flex">
+            <div class="card w3-light-grey">
+                <img src="../static/logoCinzento.png" alt="NeuroDraw's Logo" class="imagemNeuroDraw">
+            </div>
+
+            <div class="card w3-light-grey">
+                <h1 class="header2"><b><em>Missão NeuroDraw</em></b></h1>
+                <p>Revolucionar o acompanhamento clínico remoto de pacientes com Parkinson, proporcionando
+                    acessibilidade,
+                    precisão e qualidade nos cuidados de saúde. </p>
+                <p>No NeuroDraw, ambicionamos criar uma comunidade que se reúne em objetivos comuns, fortalecendo a
+                    relação
+                    paciente/profissional de saúde.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="card2 w3-white w3-center">
+        <h1 class="header3"><b><em>Alcance do NeuroDraw</em></b></h1>
+        <p>Graças a si, o NeuroDraw está presente em todo o mundo. Muito obrigado pela sua confiança!</p>
+        <section>
+            <div id="map" style="width: 95%; height: 40vw;margin: auto;" class="w3-center groove"></div>
+        </section>
+        <br>
+    </div>
+
+    <br>
+    <!-- Footer -->
+    <footer class="w3-container w3-padding-64 w3-center w3-dark-grey w3-short">
+        <p class="w3-large">
+            Projeto realizado por estudantes da Unidade Curricular de Telemedicina e Telessaúde, presente no
+            Mestrado
+            em Engenharia Biomédica pelo Instituto Superior de Engenharia do Porto.
+        </p>
+        <p class="w3-large">
+            NeuroDraw não é uma marca registada.
+        </p>
+        <img src="../static/iseplogo.png" class="fotoFooter">
+    </footer>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+
+
+
+    <script>
+        function w3_open(novoZIndex) {
+            document.getElementById("mySidebar").style.display = "block";
+            var divImagem = document.getElementById('imagem2');
+            divImagem.style.zIndex = novoZIndex;
+        }
+
+        function w3_close(novoZIndex) {
+            document.getElementById("mySidebar").style.display = "none";
+            var divImagem = document.getElementById('imagem2');
+            divImagem.style.zIndex = novoZIndex;
+        }
+
+        var map = L.map('map').setView([40.25551597, -8.101165], 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+
+        {{markers|safe}}
+
+
+    </script>
+
+</body>
+
+</html>
